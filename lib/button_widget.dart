@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class ButtonWidget extends StatelessWidget {
   final String label;
   final int flex;
+  static const topKeys = ["AC", "+/-", "%"];
+  static const rightKeys = ["/", "*", "-", "+", "="];
 
   const ButtonWidget({required this.label, this.flex = 1, super.key});
 
@@ -15,7 +17,11 @@ class ButtonWidget extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-              color: Colors.grey[800],
+              color: topKeys.contains(label)
+                  ? Colors.grey[400]
+                  : rightKeys.contains(label)
+                      ? Colors.orange
+                      : Colors.grey[800],
               borderRadius: flex > 1
                   ? const BorderRadius.all(Radius.circular(1000.0))
                   : null,

@@ -36,7 +36,7 @@ class _IndexPageState extends State<IndexPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        //backgroundColor: Colors.black,
+        backgroundColor: Colors.black,
         appBar: AppBar(
           title: const Text('Flutter Calculator'),
           centerTitle: true,

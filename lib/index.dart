@@ -27,8 +27,8 @@ class _IndexPageState extends State<IndexPage> {
     "2",
     "3",
     "+",
-    "0",
     "",
+    "0",
     ".",
     "="
   ];
@@ -38,8 +38,12 @@ class _IndexPageState extends State<IndexPage> {
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
-          title: const Text('Flutter Calculator'),
+          title: const Text(
+            'Flutter Calculator',
+            style: TextStyle(color: Colors.white),
+          ),
           centerTitle: true,
+          backgroundColor: Colors.black,
         ),
         body: Container(
           child: Column(
@@ -69,10 +73,18 @@ class _IndexPageState extends State<IndexPage> {
   Widget _buidButtons() {
     List<Widget> rows = [];
     List<Widget> btns = [];
+    int flex = 1;
     for (int i = 0; i < buttonKeys.length; i++) {
       String key = buttonKeys[i];
-      Widget btn = ButtonWidget(label: key);
-      btns.add(btn);
+      if (key.isEmpty) {
+        flex++;
+        continue;
+      } else {
+        Widget btn = ButtonWidget(label: key, flex: flex);
+        btns.add(btn);
+        flex = 1;
+      }
+
       if ((i + 1) % 4 == 0) {
         rows.add(Row(
           children: btns,

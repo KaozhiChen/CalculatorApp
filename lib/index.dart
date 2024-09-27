@@ -28,8 +28,14 @@ class _IndexPageState extends State<IndexPage> {
               )),
               Container(
                 child: const Center(
-                  child: const Row(
-                    children: [ButtonWidget(label: '1')],
+                  child: Row(
+                    children: [
+                      ButtonWidget(label: '0', flex: 2),
+                      ButtonWidget(label: '.'),
+                      ButtonWidget(
+                        label: '=',
+                      )
+                    ],
                   ),
                 ),
               )

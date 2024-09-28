@@ -49,6 +49,7 @@ class _IndexPageState extends State<IndexPage> {
           children: [
             Expanded(
                 child: SingleChildScrollView(
+              reverse: true,
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 36, vertical: 10),

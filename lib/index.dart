@@ -10,6 +10,10 @@ class IndexPage extends StatefulWidget {
 
 class _IndexPageState extends State<IndexPage> {
   String _result = "0";
+  double _firstOperand = 0; //first number before operator
+  String _operator = ""; // operator
+  double _secondOperand = 0; //first number before operator
+  bool _isOperatorPressed = false;
   static const buttonKeys = [
     "AC",
     "+/-",
@@ -105,17 +109,64 @@ class _IndexPageState extends State<IndexPage> {
     );
   }
 
+  // function to handle button clicks
   void _onButtonClick(String key) {
     setState(() {
       if (key == "AC") {
+        //reset everyting to 0 or ""
         _result = "0";
+        _firstOperand = 0;
+        _operator = "";
+        _secondOperand = 0;
+        _isOperatorPressed = false;
+      } else if (key == "+" || key == "-" || key == "*" || key == "/") {
+        // press + - * /
+        _operator = key;
+        //string to double
+        _firstOperand = double.tryParse(_result) ?? 0;
+        _isOperatorPressed = true;
+      } else if (key == "=") {
+        //perform calculations
+        //string to double
+        _secondOperand = double.tryParse(_result) ?? 0;
+        _calculate();
       } else {
-        if (_result == "0") {
+        if (_isOperatorPressed) {
+          // display second num if pressed operator
           _result = key;
+          _isOperatorPressed = false;
         } else {
-          _result += key;
+          if (_result == "0") {
+            _result = key;
+          } else {
+            _result += key;
+          }
         }
       }
     });
+  }
+
+  //function to calculate results
+  void _calculate() {
+    double result = 0;
+    if (_operator == "+") {
+      result = _firstOperand + _secondOperand;
+    } else if (_operator == "-") {
+      result = _firstOperand - _secondOperand;
+    } else if (_operator == "*") {
+      result = _firstOperand * _secondOperand;
+    } else if (_operator == "/") {
+      // the divisor cannot be 0
+      if (_secondOperand != 0) {
+        result = _firstOperand / _secondOperand;
+      } else {
+        _result = "0";
+        return;
+      }
+    }
+    // display result in screen
+    _result = result.toString();
+    _operator = "";
+    _isOperatorPressed = false;
   }
 }

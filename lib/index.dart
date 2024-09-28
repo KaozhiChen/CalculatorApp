@@ -173,6 +173,10 @@ class _IndexPageState extends State<IndexPage> {
         return;
       }
     }
+
+    // Solving the floating-point precision issue.
+    result = double.parse(result.toStringAsFixed(10));
+
     // display result in screen
     _result = result.toString();
     _operator = "";

@@ -16,6 +16,7 @@ class ButtonWidget extends StatelessWidget {
         onPressed: () {},
         child: Container(
           padding: const EdgeInsets.all(20),
+          margin: const EdgeInsets.only(bottom: 10),
           decoration: BoxDecoration(
               color: topKeys.contains(label)
                   ? Colors.grey[400]

@@ -130,6 +130,9 @@ class _IndexPageState extends State<IndexPage> {
         //string to double
         _secondOperand = double.tryParse(_result) ?? 0;
         _calculate();
+      } else if (key == "%") {
+        _firstOperand = double.tryParse(_result) ?? 0;
+        _result = (_firstOperand / 100).toString();
       } else {
         if (_isOperatorPressed) {
           // display second num if pressed operator

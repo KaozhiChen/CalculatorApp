@@ -9,7 +9,7 @@ class IndexPage extends StatefulWidget {
 }
 
 class _IndexPageState extends State<IndexPage> {
-  String result = "0";
+  String _result = "0";
   static const buttonKeys = [
     "AC",
     "+/-",
@@ -45,28 +45,24 @@ class _IndexPageState extends State<IndexPage> {
           centerTitle: true,
           backgroundColor: Colors.black,
         ),
-        body: Container(
-          child: Column(
-            children: [
-              Expanded(
-                  child: Center(
-                child: Text(result),
-              )),
-              Container(
-                child: Center(
-                    // child: Row(
-                    //   children: [
-                    //     ButtonWidget(label: '0', flex: 2),
-                    //     ButtonWidget(label: '.'),
-                    //     ButtonWidget(
-                    //       label: '=',
-                    //     )
-                    //   ],
-                    // ),
-                    child: _buidButtons()),
-              )
-            ],
-          ),
+        body: Column(
+          children: [
+            Expanded(
+                child: SingleChildScrollView(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 36, vertical: 10),
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: Text(
+                    "$_result",
+                    style: const TextStyle(color: Colors.white, fontSize: 48),
+                  ),
+                ),
+              ),
+            )),
+            Center(child: _buidButtons())
+          ],
         ));
   }
 
@@ -80,7 +76,11 @@ class _IndexPageState extends State<IndexPage> {
         flex++;
         continue;
       } else {
-        Widget btn = ButtonWidget(label: key, flex: flex);
+        Widget btn = ButtonWidget(
+          label: key,
+          flex: flex,
+          onClick: () => _onButtonClick(key),
+        );
         btns.add(btn);
         flex = 1;
       }
@@ -102,5 +102,19 @@ class _IndexPageState extends State<IndexPage> {
     return Column(
       children: rows,
     );
+  }
+
+  void _onButtonClick(String key) {
+    setState(() {
+      if (key == "AC") {
+        _result = "0";
+      } else {
+        if (_result == "0") {
+          _result = key;
+        } else {
+          _result += key;
+        }
+      }
+    });
   }
 }

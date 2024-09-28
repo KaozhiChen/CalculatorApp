@@ -3,17 +3,19 @@ import 'package:flutter/material.dart';
 class ButtonWidget extends StatelessWidget {
   final String label;
   final int flex;
+  final Function onClick;
   static const topKeys = ["AC", "+/-", "%"];
   static const rightKeys = ["/", "*", "-", "+", "="];
 
-  const ButtonWidget({required this.label, this.flex = 1, super.key});
+  const ButtonWidget(
+      {required this.label, this.flex = 1, required this.onClick, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       flex: flex,
       child: TextButton(
-        onPressed: () {},
+        onPressed: () => onClick(),
         child: Container(
           padding: const EdgeInsets.all(20),
           margin: const EdgeInsets.only(bottom: 10),

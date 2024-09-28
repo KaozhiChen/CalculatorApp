@@ -14,7 +14,7 @@ class _IndexPageState extends State<IndexPage> {
   String _operator = ""; // operator
   double _secondOperand = 0; //first number before operator
   bool _isOperatorPressed = false;
-  bool _DecPointIncluded = false;
+
   static const buttonKeys = [
     "AC",
     "+/-",
@@ -114,20 +114,18 @@ class _IndexPageState extends State<IndexPage> {
   void _onButtonClick(String key) {
     setState(() {
       if (key == "AC") {
-        //reset everyting to 0 or ""
+        //reset everyting to 0 or "" or false
         _result = "0";
         _firstOperand = 0;
         _operator = "";
         _secondOperand = 0;
         _isOperatorPressed = false;
-        _DecPointIncluded = false;
       } else if (key == "+" || key == "-" || key == "*" || key == "/") {
         // press + - * /
         _operator = key;
         //string to double
         _firstOperand = double.tryParse(_result) ?? 0;
         _isOperatorPressed = true;
-        _DecPointIncluded = false;
       } else if (key == "=") {
         //perform calculations
         //string to double
@@ -136,10 +134,11 @@ class _IndexPageState extends State<IndexPage> {
       } else if (key == "%") {
         _firstOperand = double.tryParse(_result) ?? 0;
         _result = (_firstOperand / 100).toString();
-      } else if (key == "." && !_DecPointIncluded) {
+      } else if (key == ".") {
         // Only allow input "." one time
-        _result += ".";
-        _DecPointIncluded = true;
+        if (!_result.contains(".")) {
+          _result += ".";
+        }
       } else {
         if (_isOperatorPressed) {
           // display second num if pressed operator

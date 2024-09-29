@@ -52,6 +52,7 @@ class _IndexPageState extends State<IndexPage> {
         ),
         body: Column(
           children: [
+            // Display area for the result
             Expanded(
                 child: SingleChildScrollView(
               reverse: true,
@@ -61,17 +62,19 @@ class _IndexPageState extends State<IndexPage> {
                 child: Align(
                   alignment: Alignment.bottomRight,
                   child: Text(
-                    "$_result",
+                    _result,
                     style: const TextStyle(color: Colors.white, fontSize: 48),
                   ),
                 ),
               ),
             )),
+            // display area for the button
             Center(child: _buidButtons())
           ],
         ));
   }
 
+  // Widget to build buttons
   Widget _buidButtons() {
     List<Widget> rows = [];
     List<Widget> btns = [];

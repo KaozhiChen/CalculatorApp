@@ -1,5 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_calculator/button_widget.dart';
+// import 'package:flutter_calculator/index.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: 'Calculator App',
+      home: IndexPage(),
+    );
+  }
+}
 
 class IndexPage extends StatefulWidget {
   const IndexPage({super.key});
@@ -15,6 +31,7 @@ class _IndexPageState extends State<IndexPage> {
   double _secondOperand = 0; //first number before operator
   bool _isOperatorPressed = false;
 
+  // store button keys
   static const buttonKeys = [
     "AC",
     "+/-",
@@ -44,7 +61,7 @@ class _IndexPageState extends State<IndexPage> {
         backgroundColor: Colors.black,
         appBar: AppBar(
           title: const Text(
-            'Flutter Calculator',
+            'Calculator App',
             style: TextStyle(color: Colors.white),
           ),
           centerTitle: true,
@@ -68,6 +85,7 @@ class _IndexPageState extends State<IndexPage> {
                 ),
               ),
             )),
+
             // display area for the button
             Center(child: _buidButtons())
           ],
@@ -184,5 +202,54 @@ class _IndexPageState extends State<IndexPage> {
     _result = result.toString();
     _operator = "";
     _isOperatorPressed = false;
+  }
+}
+
+// ButtonWidget to custom buttons
+class ButtonWidget extends StatelessWidget {
+  final String label;
+  final int flex;
+  final Function onClick;
+  static const topKeys = ["AC", "+/-", "%"];
+  static const rightKeys = ["/", "*", "-", "+", "="];
+
+  const ButtonWidget(
+      {required this.label, this.flex = 1, required this.onClick, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // buttons layout
+    return Expanded(
+      flex: flex,
+      child: TextButton(
+        onPressed: () => onClick(),
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          margin: const EdgeInsets.only(bottom: 10),
+          decoration: BoxDecoration(
+              color: topKeys.contains(label)
+                  ? Colors.grey[400]
+                  : rightKeys.contains(label)
+                      ? Colors.orange
+                      : Colors.grey[800],
+              borderRadius: flex > 1
+                  ? const BorderRadius.all(Radius.circular(1000.0))
+                  : null,
+              shape: flex > 1 ? BoxShape.rectangle : BoxShape.circle),
+          child: Center(
+            child: Center(
+              child: Text(
+                label,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 30,
+                ),
+                softWrap: false,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
